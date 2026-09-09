@@ -10242,3 +10242,55 @@
 2026-09-09 11:15:01 State[EUR_GBP]: ema_pos=0, rsi=1(rsi=27), vol=0(atr=0.00008), body=2 → 29
 2026-09-09 11:15:05 🕐 MGMT: EUR_GBP age=0m P/L=-2.8p peak=+0.0p fading=❌ action=trail
 2026-09-09 11:15:05 📐 SL trailed: EUR_GBP → 0.85827 (1 ATR)
+2026-09-09 11:16:04 CandleManager() new candle:last_candle:26-09-09 15:15 is_ready:True
+2026-09-09 11:16:08 State[EUR_GBP]: ema_pos=0, rsi=1(rsi=28), vol=0(atr=0.00008), body=2 → 29
+2026-09-09 11:16:13 🕐 MGMT: EUR_GBP age=0m P/L=-4.5p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:16:14 📐 SL trailed: EUR_GBP → 0.85818 (1 ATR)
+2026-09-09 11:17:02 CandleManager() new candle:last_candle:26-09-09 15:16 is_ready:True
+2026-09-09 11:17:04 State[EUR_GBP]: ema_pos=0, rsi=1(rsi=33), vol=0(atr=0.00007), body=2 → 29
+2026-09-09 11:17:05 🕐 MGMT: EUR_GBP age=0m P/L=-3.0p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:17:05 📐 SL trailed: EUR_GBP → 0.85826 (1 ATR)
+2026-09-09 11:18:01 State[EUR_GBP]: ema_pos=0, rsi=1(rsi=33), vol=0(atr=0.00007), body=2 → 29
+2026-09-09 11:18:06 CandleManager() new candle:last_candle:26-09-09 15:17 is_ready:True
+2026-09-09 11:18:10 🕐 MGMT: EUR_GBP age=0m P/L=-1.5p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:18:10 📐 SL trailed: EUR_GBP → 0.85831 (1 ATR)
+2026-09-09 11:19:02 CandleManager() new candle:last_candle:26-09-09 15:18 is_ready:True
+2026-09-09 11:19:05 State[EUR_GBP]: ema_pos=2, rsi=1(rsi=37), vol=0(atr=0.00007), body=2 → 191
+2026-09-09 11:19:08 🕐 MGMT: EUR_GBP age=0m P/L=-0.8p peak=+0.0p fading=❌ action=close
+2026-09-09 11:19:08 🚪 Trade closed manually: EUR_GBP (P/L=-0.9p)
+2026-09-09 11:19:10 Q-UPDATE: trade=94637 pair=EUR_GBP state=860 action=34 reward=-2.89 age=304s
+2026-09-09 11:20:00 CandleManager() new candle:last_candle:26-09-09 15:19 is_ready:True
+2026-09-09 11:20:02 State[EUR_GBP]: ema_pos=1, rsi=1(rsi=41), vol=0(atr=0.00007), body=2 → 110
+2026-09-09 11:20:03 tech_manager: max_rows:29 candle_time:2026-09-09 15:19:00+00:00 granularity:M1
+2026-09-09 11:20:03 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:20:03 BB output: BB_MA=[0.8584985185185184, 0.858478888888889, 0.8584618518518519], BB_UP=[0.8586875309372762, 0.8586395904756897, 0.8585963674436796], BB_LW=[0.8583095060997606, 0.8583181873020883, 0.8583273362600241]
+2026-09-09 11:20:03 process_candles:
+       PAIR                      time    mid_c    mid_o       SL        TP   SPREAD      GAIN     LOSS  SIGNAL
+23  EUR_GBP 2026-09-09 15:15:00+00:00  0.85831  0.85840  0.85810  0.858733  0.00014  0.000236  0.00021       1
+24  EUR_GBP 2026-09-09 15:16:00+00:00  0.85835  0.85830  0.85814  0.858700  0.00014  0.000175  0.00021       1
+25  EUR_GBP 2026-09-09 15:17:00+00:00  0.85846  0.85836  0.85824  0.858840  0.00015  0.000039  0.00022       1
+26  EUR_GBP 2026-09-09 15:18:00+00:00  0.85852  0.85849  0.85874  0.858140  0.00015  0.000041  0.00022      -1
+27  EUR_GBP 2026-09-09 15:19:00+00:00  0.85848  0.85852  0.00000  0.000000  0.00015  0.000018  0.85848       0
+2026-09-09 11:20:03 ⏭️ NO TRADE EUR_GBP: signal=NONE (mid_c=0.85848)
+2026-09-09 11:21:03 State[EUR_GBP]: ema_pos=1, rsi=1(rsi=44), vol=0(atr=0.00006), body=2 → 110
+2026-09-09 11:21:07 CandleManager() new candle:last_candle:26-09-09 15:20 is_ready:True
+2026-09-09 11:21:09 tech_manager: max_rows:29 candle_time:2026-09-09 15:20:00+00:00 granularity:M1
+2026-09-09 11:21:09 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:21:09 BB output: BB_MA=[0.8584788888888889, 0.8584618518518519, 0.8584455555555555], BB_UP=[0.8586395904756883, 0.8585963674436777, 0.8585449285901263], BB_LW=[0.8583181873020895, 0.858327336260026, 0.8583461825209846]
+2026-09-09 11:21:09 process_candles:
+       PAIR                      time    mid_c    mid_o       SL       TP   SPREAD      GAIN     LOSS  SIGNAL
+23  EUR_GBP 2026-09-09 15:16:00+00:00  0.85835  0.85830  0.85814  0.85870  0.00014  0.000175  0.00021       1
+24  EUR_GBP 2026-09-09 15:17:00+00:00  0.85846  0.85836  0.85824  0.85884  0.00015  0.000039  0.00022       1
+25  EUR_GBP 2026-09-09 15:18:00+00:00  0.85852  0.85849  0.85874  0.85814  0.00015  0.000041  0.00022      -1
+26  EUR_GBP 2026-09-09 15:19:00+00:00  0.85848  0.85852  0.00000  0.00000  0.00015  0.000018  0.85848       0
+27  EUR_GBP 2026-09-09 15:20:00+00:00  0.85848  0.85847  0.85867  0.85815  0.00013  0.000034  0.00019      -1
+2026-09-09 11:21:09 Q-Action: State=430, Signal=-1, Tier=1, (SL=0.00039/2.0pips, TP=0.00040/4.0pips), Spread=0.00013, Entry=0.85840, ε=0.050, Q=['0.0000', '0.0000', '0.0000', '0.0000']
+2026-09-09 11:21:12 Place Trade: TradeDecision(): EUR_GBP dir:-1 gain:0.0000 sl:0.8588 tp:0.8580 | Tier=1
+2026-09-09 11:21:12 Place Trade: TradeDecision(): EUR_GBP dir:-1 gain:0.0000 sl:0.8588 tp:0.8580
+2026-09-09 11:21:12 Margin: avail=1053.66, cap(20%)=105.37, rate=0.06, conv=1.0000, max=1756
+2026-09-09 11:21:12 FINAL: Units=1756 (risk=93859, margin_cap=1756)
+2026-09-09 11:21:12 placed trade_id:94687 for TradeDecision(): EUR_GBP dir:-1 gain:0.0000 sl:0.8588 tp:0.8580 | Units: 1756
+2026-09-09 11:22:07 CandleManager() new candle:last_candle:26-09-09 15:21 is_ready:True
+2026-09-09 11:22:09 State[EUR_GBP]: ema_pos=2, rsi=1(rsi=46), vol=0(atr=0.00006), body=2 → 191
+2026-09-09 11:22:12 🕐 MGMT: EUR_GBP age=0m P/L=-3.0p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:22:12 📐 SL trailed: EUR_GBP → 0.85861 (1 ATR)

@@ -8200,3 +8200,46 @@
 2026-09-09 11:15:02 State[AUD_CAD]: ema_pos=1, rsi=0(rsi=24), vol=0(atr=0.00017), body=2 → 83
 2026-09-09 11:15:05 🕐 MGMT: AUD_CAD age=0m P/L=-4.0p peak=+0.0p fading=❌ action=breakeven
 2026-09-09 11:15:05 ⏭️ BE skipped: AUD_CAD not in profit (long, px=0.99648 ≤ entry=0.99658)
+2026-09-09 11:16:06 CandleManager() new candle:last_candle:26-09-09 15:15 is_ready:True
+2026-09-09 11:16:08 State[AUD_CAD]: ema_pos=2, rsi=1(rsi=38), vol=0(atr=0.00013), body=2 → 191
+2026-09-09 11:16:16 🕐 MGMT: AUD_CAD age=0m P/L=-2.4p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:16:17 📐 SL trailed: AUD_CAD → 0.99619 (1 ATR)
+2026-09-09 11:17:03 CandleManager() new candle:last_candle:26-09-09 15:16 is_ready:True
+2026-09-09 11:17:04 State[AUD_CAD]: ema_pos=3, rsi=1(rsi=42), vol=0(atr=0.00014), body=2 → 272
+2026-09-09 11:17:06 🕐 MGMT: AUD_CAD age=0m P/L=-1.3p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:17:06 📐 SL trailed: AUD_CAD → 0.99631 (1 ATR)
+2026-09-09 11:18:01 State[AUD_CAD]: ema_pos=2, rsi=1(rsi=43), vol=0(atr=0.00013), body=2 → 191
+2026-09-09 11:18:06 CandleManager() new candle:last_candle:26-09-09 15:17 is_ready:True
+2026-09-09 11:18:10 🕐 MGMT: AUD_CAD age=0m P/L=-0.8p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:18:10 📐 SL trailed: AUD_CAD → 0.99632 (1 ATR)
+2026-09-09 11:19:05 State[AUD_CAD]: ema_pos=2, rsi=1(rsi=48), vol=0(atr=0.00012), body=2 → 191
+2026-09-09 11:19:10 CandleManager() new candle:last_candle:26-09-09 15:18 is_ready:True
+2026-09-09 11:19:10 🕐 MGMT: AUD_CAD age=0m P/L=-1.4p peak=+0.0p fading=❌ action=breakeven
+2026-09-09 11:19:10 🛡️ SL→BE: AUD_CAD @ 0.99670 (entry=0.99658)
+2026-09-09 11:20:02 State[AUD_CAD]: ema_pos=3, rsi=2(rsi=58), vol=0(atr=0.00011), body=2 → 299
+2026-09-09 11:20:06 CandleManager() new candle:last_candle:26-09-09 15:19 is_ready:True
+2026-09-09 11:20:12 🕐 MGMT: AUD_CAD age=0m P/L=-0.2p peak=+0.0p fading=❌ action=close
+2026-09-09 11:20:12 🚪 Trade closed manually: AUD_CAD (P/L=-0.5p)
+2026-09-09 11:21:03 State[AUD_CAD]: ema_pos=3, rsi=2(rsi=58), vol=0(atr=0.00011), body=2 → 299
+2026-09-09 11:21:03 Q-UPDATE: trade=94599 pair=AUD_CAD state=27 action=48 reward=-2.00 age=715s
+2026-09-09 11:21:08 CandleManager() new candle:last_candle:26-09-09 15:20 is_ready:True
+2026-09-09 11:21:12 tech_manager: max_rows:29 candle_time:2026-09-09 15:20:00+00:00 granularity:M1
+2026-09-09 11:21:12 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:21:12 BB output: BB_MA=[0.996355925925926, 0.9963807407407407, 0.99642], BB_UP=[0.9965894556052186, 0.9966437851497489, 0.9967081514358794], BB_LW=[0.9961223962466335, 0.9961176963317324, 0.9961318485641205]
+2026-09-09 11:21:12 process_candles:
+       PAIR                      time    mid_c    mid_o       SL       TP   SPREAD      GAIN     LOSS  SIGNAL
+23  AUD_CAD 2026-09-09 15:16:00+00:00  0.99654  0.99646  0.99688  0.99596  0.00023  0.000213  0.00034      -1
+24  AUD_CAD 2026-09-09 15:17:00+00:00  0.99652  0.99657  0.99687  0.99595  0.00023  0.000184  0.00035      -1
+25  AUD_CAD 2026-09-09 15:18:00+00:00  0.99654  0.99656  0.99687  0.99599  0.00022  0.000184  0.00033      -1
+26  AUD_CAD 2026-09-09 15:19:00+00:00  0.99664  0.99654  0.99697  0.99609  0.00022  0.000259  0.00033      -1
+27  AUD_CAD 2026-09-09 15:20:00+00:00  0.99668  0.99668  0.99701  0.99613  0.00022  0.000260  0.00033      -1
+2026-09-09 11:21:12 Q-Action: State=430, Signal=-1, Tier=1, (SL=0.00075/2.0pips, TP=0.00150/4.0pips), Spread=0.00025, Entry=0.99656, ε=0.050, Q=['0.0000', '0.0000', '0.0000', '0.0000']
+2026-09-09 11:21:14 Place Trade: TradeDecision(): AUD_CAD dir:-1 gain:0.0003 sl:0.9973 tp:0.9951 | Tier=1
+2026-09-09 11:21:14 Place Trade: TradeDecision(): AUD_CAD dir:-1 gain:0.0003 sl:0.9973 tp:0.9951
+2026-09-09 11:21:14 Margin: avail=1053.66, cap(20%)=105.37, rate=0.03, conv=1.0000, max=3512
+2026-09-09 11:21:14 FINAL: Units=3512 (risk=48806, margin_cap=3512)
+2026-09-09 11:21:14 placed trade_id:94691 for TradeDecision(): AUD_CAD dir:-1 gain:0.0003 sl:0.9973 tp:0.9951 | Units: 3512
+2026-09-09 11:22:07 CandleManager() new candle:last_candle:26-09-09 15:21 is_ready:True
+2026-09-09 11:22:09 State[AUD_CAD]: ema_pos=3, rsi=2(rsi=63), vol=0(atr=0.00010), body=2 → 299
+2026-09-09 11:22:13 🕐 MGMT: AUD_CAD age=0m P/L=-2.2p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:22:14 📐 SL trailed: AUD_CAD → 0.99693 (1 ATR)

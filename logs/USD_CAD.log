@@ -9512,3 +9512,76 @@
 2026-09-09 11:15:00 CandleManager() new candle:last_candle:26-09-09 15:14 is_ready:True
 2026-09-09 11:15:02 State[USD_CAD]: ema_pos=4, rsi=3(rsi=87), vol=0(atr=0.00017), body=2 → 407
 2026-09-09 11:15:05 🕐 MGMT: USD_CAD age=0m P/L=-4.5p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:16:06 CandleManager() new candle:last_candle:26-09-09 15:15 is_ready:True
+2026-09-09 11:16:08 State[USD_CAD]: ema_pos=4, rsi=3(rsi=86), vol=0(atr=0.00016), body=2 → 407
+2026-09-09 11:16:12 Q-UPDATE: trade=94627 pair=USD_CAD state=462 action=47 reward=-11.00 age=183s
+2026-09-09 11:16:15 tech_manager: max_rows:29 candle_time:2026-09-09 15:15:00+00:00 granularity:M1
+2026-09-09 11:16:16 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:16:16 BB output: BB_MA=[1.3807525925925925, 1.380802222222222, 1.380878888888889], BB_UP=[1.381001349222878, 1.3810968724385801, 1.381253446961823], BB_LW=[1.380503835962307, 1.380507572005864, 1.380504330815955]
+2026-09-09 11:16:16 process_candles:
+       PAIR                      time    mid_c    mid_o        SL        TP   SPREAD      GAIN      LOSS  SIGNAL
+23  USD_CAD 2026-09-09 15:11:00+00:00  1.38100  1.38070  1.381339  1.380292  0.00017  0.000419  0.000339      -1
+24  USD_CAD 2026-09-09 15:12:00+00:00  1.38096  1.38102  1.381220  1.380459  0.00017  0.000280  0.000260      -1
+25  USD_CAD 2026-09-09 15:13:00+00:00  1.38111  1.38098  1.381380  1.380484  0.00018  0.000357  0.000270      -1
+26  USD_CAD 2026-09-09 15:14:00+00:00  1.38117  1.38110  1.381458  1.380538  0.00016  0.000368  0.000288      -1
+27  USD_CAD 2026-09-09 15:15:00+00:00  1.38134  1.38118  1.381711  1.380558  0.00017  0.000461  0.000371      -1
+2026-09-09 11:16:16 Q-Action: State=87, Signal=-1, Tier=0, (SL=0.00054/1.5pips, TP=0.00108/3.5pips), Spread=0.00018, Entry=1.38126, ε=0.050, Q=['0.0000', '-1.0200', '0.0000', '0.0000']
+2026-09-09 11:16:16 Place Trade: TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3818 tp:1.3802 | Tier=0
+2026-09-09 11:16:16 Place Trade: TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3818 tp:1.3802
+2026-09-09 11:16:16 Margin: avail=974.67, cap(20%)=97.47, rate=0.02, conv=1.0000, max=4873
+2026-09-09 11:16:16 FINAL: Units=4873 (risk=70567, margin_cap=4873)
+2026-09-09 11:16:16 placed trade_id:94647 for TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3818 tp:1.3802 | Units: 4873
+2026-09-09 11:17:02 CandleManager() new candle:last_candle:26-09-09 15:16 is_ready:True
+2026-09-09 11:17:04 State[USD_CAD]: ema_pos=3, rsi=3(rsi=80), vol=0(atr=0.00015), body=2 → 326
+2026-09-09 11:17:06 🕐 MGMT: USD_CAD age=0m P/L=-0.3p peak=+0.0p fading=❌ action=close
+2026-09-09 11:17:06 🚪 Trade closed manually: USD_CAD (P/L=+0.0p)
+2026-09-09 11:18:00 CandleManager() new candle:last_candle:26-09-09 15:17 is_ready:True
+2026-09-09 11:18:01 State[USD_CAD]: ema_pos=4, rsi=3(rsi=81), vol=0(atr=0.00015), body=2 → 407
+2026-09-09 11:18:02 Q-UPDATE: trade=94647 pair=USD_CAD state=87 action=44 reward=-1.00 age=105s
+2026-09-09 11:18:02 tech_manager: max_rows:29 candle_time:2026-09-09 15:17:00+00:00 granularity:M1
+2026-09-09 11:18:02 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:18:02 BB output: BB_MA=[1.380878888888889, 1.3809474074074073, 1.3810237037037036], BB_UP=[1.3812534469618225, 1.3813408678388497, 1.3814289848132777], BB_LW=[1.3805043308159555, 1.380553946975965, 1.3806184225941296]
+2026-09-09 11:18:02 process_candles:
+       PAIR                      time    mid_c    mid_o        SL        TP   SPREAD      GAIN      LOSS  SIGNAL
+23  USD_CAD 2026-09-09 15:13:00+00:00  1.38111  1.38098  1.381380  1.380484  0.00018  0.000357  0.000270      -1
+24  USD_CAD 2026-09-09 15:14:00+00:00  1.38117  1.38110  1.381458  1.380538  0.00016  0.000368  0.000288      -1
+25  USD_CAD 2026-09-09 15:15:00+00:00  1.38134  1.38118  1.381711  1.380558  0.00017  0.000461  0.000371      -1
+26  USD_CAD 2026-09-09 15:16:00+00:00  1.38122  1.38134  1.381440  1.380731  0.00015  0.000273  0.000220      -1
+27  USD_CAD 2026-09-09 15:17:00+00:00  1.38140  1.38122  1.381686  1.380746  0.00017  0.000376  0.000286      -1
+2026-09-09 11:18:02 Q-Action: State=120, Signal=-1, Tier=1, (SL=0.00054/2.0pips, TP=0.00108/4.0pips), Spread=0.00018, Entry=1.38134, ε=0.050, Q=['0.0000', '-1.3200', '-1.4915', '0.0000']
+2026-09-09 11:18:04 Place Trade: TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3819 tp:1.3803 | Tier=1
+2026-09-09 11:18:04 Place Trade: TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3819 tp:1.3803
+2026-09-09 11:18:04 Margin: avail=1170.41, cap(20%)=117.04, rate=0.02, conv=1.0000, max=5852
+2026-09-09 11:18:04 FINAL: Units=5852 (risk=66804, margin_cap=5852)
+2026-09-09 11:18:04 placed trade_id:94659 for TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3819 tp:1.3803 | Units: 5852
+2026-09-09 11:19:02 CandleManager() new candle:last_candle:26-09-09 15:18 is_ready:True
+2026-09-09 11:19:05 State[USD_CAD]: ema_pos=4, rsi=3(rsi=80), vol=0(atr=0.00015), body=2 → 407
+2026-09-09 11:19:08 🕐 MGMT: USD_CAD age=0m P/L=-4.8p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:19:08 📐 SL trailed: USD_CAD → 1.38201 (1 ATR)
+2026-09-09 11:20:00 CandleManager() new candle:last_candle:26-09-09 15:19 is_ready:True
+2026-09-09 11:20:02 State[USD_CAD]: ema_pos=4, rsi=3(rsi=76), vol=0(atr=0.00013), body=2 → 407
+2026-09-09 11:20:03 Q-UPDATE: trade=94659 pair=USD_CAD state=120 action=45 reward=-11.80 age=117s
+2026-09-09 11:20:03 tech_manager: max_rows:29 candle_time:2026-09-09 15:19:00+00:00 granularity:M1
+2026-09-09 11:20:03 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:20:03 BB output: BB_MA=[1.3810237037037036, 1.381137037037037, 1.3812525925925927], BB_UP=[1.381428984813278, 1.3815582588049669, 1.3816796887306122], BB_LW=[1.3806184225941294, 1.3807158152691072, 1.3808254964545732]
+2026-09-09 11:20:03 process_candles:
+       PAIR                      time    mid_c    mid_o        SL        TP   SPREAD      GAIN      LOSS  SIGNAL
+23  USD_CAD 2026-09-09 15:15:00+00:00  1.38134  1.38118  1.381711  1.380558  0.00017  0.000461  0.000371      -1
+24  USD_CAD 2026-09-09 15:16:00+00:00  1.38122  1.38134  1.381440  1.380731  0.00015  0.000273  0.000220      -1
+25  USD_CAD 2026-09-09 15:17:00+00:00  1.38140  1.38122  1.381686  1.380746  0.00017  0.000376  0.000286      -1
+26  USD_CAD 2026-09-09 15:18:00+00:00  1.38174  1.38138  1.382253  1.380746  0.00018  0.000603  0.000513      -1
+27  USD_CAD 2026-09-09 15:19:00+00:00  1.38171  1.38176  1.382087  1.380944  0.00016  0.000457  0.000377      -1
+2026-09-09 11:20:03 Q-Action: State=390, Signal=-1, Tier=1, (SL=0.00051/2.0pips, TP=0.00102/4.0pips), Spread=0.00017, Entry=1.38162, ε=0.050, Q=['0.0000', '0.0000', '0.0000', '0.0000']
+2026-09-09 11:20:03 Place Trade: TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3821 tp:1.3806 | Tier=1
+2026-09-09 11:20:03 Place Trade: TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3821 tp:1.3806
+2026-09-09 11:20:03 Margin: avail=1137.45, cap(20%)=113.74, rate=0.02, conv=1.0000, max=5687
+2026-09-09 11:20:03 FINAL: Units=5687 (risk=69099, margin_cap=5687)
+2026-09-09 11:20:03 placed trade_id:94679 for TradeDecision(): USD_CAD dir:-1 gain:0.0004 sl:1.3821 tp:1.3806 | Units: 5687
+2026-09-09 11:21:03 State[USD_CAD]: ema_pos=4, rsi=3(rsi=80), vol=0(atr=0.00013), body=2 → 407
+2026-09-09 11:21:08 CandleManager() new candle:last_candle:26-09-09 15:20 is_ready:True
+2026-09-09 11:21:12 🕐 MGMT: USD_CAD age=0m P/L=-2.0p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:21:12 📐 SL trailed: USD_CAD → 1.38194 (1 ATR)
+2026-09-09 11:22:07 CandleManager() new candle:last_candle:26-09-09 15:21 is_ready:True
+2026-09-09 11:22:09 State[USD_CAD]: ema_pos=4, rsi=3(rsi=85), vol=0(atr=0.00014), body=2 → 407
+2026-09-09 11:22:12 🕐 MGMT: USD_CAD age=0m P/L=-3.9p peak=+0.0p fading=❌ action=trail
+2026-09-09 11:22:13 📐 SL trailed: USD_CAD → 1.38215 (1 ATR)

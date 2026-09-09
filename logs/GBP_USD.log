@@ -9318,3 +9318,59 @@
 2026-09-09 11:15:04 Margin: avail=1035.29, cap(20%)=103.53, rate=0.05, conv=1.0000, max=2070
 2026-09-09 11:15:04 FINAL: Units=2070 (risk=61171, margin_cap=2070)
 2026-09-09 11:15:04 placed trade_id:94643 for TradeDecision(): GBP_USD dir:1 gain:0.0003 sl:1.3537 tp:1.3554 | Units: 2070
+2026-09-09 11:16:04 CandleManager() new candle:last_candle:26-09-09 15:15 is_ready:True
+2026-09-09 11:16:08 State[GBP_USD]: ema_pos=1, rsi=0(rsi=18), vol=0(atr=0.00016), body=2 → 83
+2026-09-09 11:17:02 CandleManager() new candle:last_candle:26-09-09 15:16 is_ready:True
+2026-09-09 11:17:04 State[GBP_USD]: ema_pos=1, rsi=0(rsi=19), vol=0(atr=0.00015), body=2 → 83
+2026-09-09 11:17:05 🕐 MGMT: GBP_USD age=0m P/L=-0.8p peak=+0.0p fading=❌ action=close
+2026-09-09 11:17:05 🚪 Trade closed manually: GBP_USD (P/L=-0.1p)
+2026-09-09 11:18:01 State[GBP_USD]: ema_pos=0, rsi=0(rsi=18), vol=0(atr=0.00016), body=2 → 2
+2026-09-09 11:18:02 Q-UPDATE: trade=94643 pair=GBP_USD state=516 action=26 reward=-1.28 age=175s
+2026-09-09 11:18:06 CandleManager() new candle:last_candle:26-09-09 15:17 is_ready:True
+2026-09-09 11:18:07 tech_manager: max_rows:29 candle_time:2026-09-09 15:17:00+00:00 granularity:M1
+2026-09-09 11:18:08 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:18:08 BB output: BB_MA=[1.3543607407407405, 1.3543203703703706, 1.3542500000000002], BB_UP=[1.3547603794664844, 1.3546914283547624, 1.3545741816620407], BB_LW=[1.3539611020149966, 1.3539493123859787, 1.3539258183379597]
+2026-09-09 11:18:08 process_candles:
+       PAIR                      time    mid_c    mid_o        SL        TP   SPREAD      GAIN      LOSS  SIGNAL
+23  GBP_USD 2026-09-09 15:13:00+00:00  1.35408  1.35401  1.353755  1.354767  0.00017  0.000405  0.000325       1
+24  GBP_USD 2026-09-09 15:14:00+00:00  1.35412  1.35406  1.353850  1.354650  0.00018  0.000293  0.000270       1
+25  GBP_USD 2026-09-09 15:15:00+00:00  1.35428  1.35410  1.354000  1.354760  0.00019  0.000081  0.000280       1
+26  GBP_USD 2026-09-09 15:16:00+00:00  1.35428  1.35429  0.000000  0.000000  0.00019  0.000040  1.354280       0
+27  GBP_USD 2026-09-09 15:17:00+00:00  1.35397  1.35428  1.353700  1.354480  0.00018  0.000280  0.000270       1
+2026-09-09 11:18:08 Q-Action: State=120, Signal=1, Tier=3, (SL=0.00054/5.0pips, TP=0.00070/7.0pips), Spread=0.00018, Entry=1.35413, ε=0.050, Q=['0.0000', '0.0000', '0.0000', '0.0000']
+2026-09-09 11:18:09 Place Trade: TradeDecision(): GBP_USD dir:1 gain:0.0003 sl:1.3536 tp:1.3548 | Tier=3
+2026-09-09 11:18:09 Place Trade: TradeDecision(): GBP_USD dir:1 gain:0.0003 sl:1.3536 tp:1.3548
+2026-09-09 11:18:10 Margin: avail=1008.64, cap(20%)=100.86, rate=0.05, conv=1.0000, max=2017
+2026-09-09 11:18:10 FINAL: Units=2017 (risk=69302, margin_cap=2017)
+2026-09-09 11:18:10 placed trade_id:94663 for TradeDecision(): GBP_USD dir:1 gain:0.0003 sl:1.3536 tp:1.3548 | Units: 2017
+2026-09-09 11:19:02 CandleManager() new candle:last_candle:26-09-09 15:18 is_ready:True
+2026-09-09 11:19:04 State[GBP_USD]: ema_pos=0, rsi=0(rsi=20), vol=0(atr=0.00015), body=2 → 2
+2026-09-09 11:19:06 tech_manager: max_rows:29 candle_time:2026-09-09 15:18:00+00:00 granularity:M1
+2026-09-09 11:19:06 BB input: n_ma=9, n_std=1.5, cols=['time', 'volume', 'mid_o', 'mid_h', 'mid_l', 'mid_c', 'bid_o', 'bid_h', 'bid_l', 'bid_c', 'ask_o', 'ask_h', 'ask_l', 'ask_c', 'PAIR', 'SPREAD'], rows=28
+2026-09-09 11:19:06 BB output: BB_MA=[1.3543203703703703, 1.35425, 1.3541537037037037], BB_UP=[1.3546914283547622, 1.3545741816620405, 1.354455980940328], BB_LW=[1.3539493123859785, 1.3539258183379594, 1.3538514264670793]
+2026-09-09 11:19:06 process_candles:
+       PAIR                      time    mid_c    mid_o        SL        TP   SPREAD      GAIN      LOSS  SIGNAL
+23  GBP_USD 2026-09-09 15:14:00+00:00  1.35412  1.35406  1.353850  1.354650  0.00018  0.000293  0.000270       1
+24  GBP_USD 2026-09-09 15:15:00+00:00  1.35428  1.35410  1.354000  1.354760  0.00019  0.000081  0.000280       1
+25  GBP_USD 2026-09-09 15:16:00+00:00  1.35428  1.35429  0.000000  0.000000  0.00019  0.000040  1.354280       0
+26  GBP_USD 2026-09-09 15:17:00+00:00  1.35397  1.35428  1.353700  1.354480  0.00018  0.000280  0.000270       1
+27  GBP_USD 2026-09-09 15:18:00+00:00  1.35367  1.35398  1.353286  1.354496  0.00020  0.000484  0.000384       1
+2026-09-09 11:19:06 Q-Action: State=932, Signal=1, Tier=2, (SL=0.00060/3.0pips, TP=0.00120/4.5pips), Spread=0.00020, Entry=1.35377, ε=0.050, Q=['0.0000', '0.0000', '0.0000', '0.0000']
+2026-09-09 11:19:08 Place Trade: TradeDecision(): GBP_USD dir:1 gain:0.0005 sl:1.3532 tp:1.3550 | Tier=2
+2026-09-09 11:19:08 Place Trade: TradeDecision(): GBP_USD dir:1 gain:0.0005 sl:1.3532 tp:1.3550
+2026-09-09 11:19:08 Margin: avail=1003.68, cap(20%)=100.37, rate=0.05, conv=1.0000, max=2007
+2026-09-09 11:19:08 FINAL: Units=2007 (risk=56356, margin_cap=2007)
+2026-09-09 11:19:08 placed trade_id:94669 for TradeDecision(): GBP_USD dir:1 gain:0.0005 sl:1.3532 tp:1.3550 | Units: 2007
+2026-09-09 11:20:02 State[GBP_USD]: ema_pos=0, rsi=1(rsi=31), vol=0(atr=0.00014), body=2 → 29
+2026-09-09 11:20:03 Q-UPDATE: trade=94663 pair=GBP_USD state=120 action=27 reward=-11.80 age=113s
+2026-09-09 11:20:06 CandleManager() new candle:last_candle:26-09-09 15:19 is_ready:True
+2026-09-09 11:20:09 🕐 MGMT: GBP_USD age=0m P/L=+0.3p peak=+0.3p fading=❌ action=close
+2026-09-09 11:20:12 📐 SL trailed: GBP_USD → 1.35368 (1 ATR)
+2026-09-09 11:21:00 CandleManager() new candle:last_candle:26-09-09 15:20 is_ready:True
+2026-09-09 11:21:03 State[GBP_USD]: ema_pos=1, rsi=1(rsi=37), vol=0(atr=0.00015), body=2 → 110
+2026-09-09 11:21:04 🕐 MGMT: GBP_USD age=0m P/L=+2.1p peak=+2.1p fading=❌ action=breakeven
+2026-09-09 11:21:04 🛡️ SL→BE: GBP_USD @ 1.35392 (entry=1.35382)
+2026-09-09 11:22:05 CandleManager() new candle:last_candle:26-09-09 15:21 is_ready:True
+2026-09-09 11:22:09 State[GBP_USD]: ema_pos=1, rsi=1(rsi=32), vol=0(atr=0.00015), body=2 → 110
+2026-09-09 11:22:12 🕐 MGMT: GBP_USD age=0m P/L=+0.8p peak=+2.1p fading=✅ action=close
+2026-09-09 11:22:12 🚪 Trade closed manually: GBP_USD (P/L=+0.0p)
