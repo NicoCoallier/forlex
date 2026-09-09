@@ -1,0 +1,55 @@
+{
+    "trade_risk": 2,
+    "strategy": "portfolio_q_learning",
+    "pairs": {
+        "GBP_CHF": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.00025,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        },
+        "EUR_CHF": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.0003,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        },
+        "GBP_JPY": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.015,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        },
+        "GBP_USD": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.00025,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        },
+        "EUR_GBP": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.0003,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        },
+        "USD_CAD": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.0002,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        },
+        "AUD_CAD": {
+            "n_ma": 9,
+            "n_std": 1.5,
+            "maxspread": 0.0003,
+            "mingain": 0.00003,
+            "riskreward": 1.05
+        }
+    }
+}   
