@@ -27,9 +27,9 @@ class PortfolioQLearningStrategy(TradingStrategy):
 
         self.profit_take_threshold = 1.5     
                 
-        self.epsilon = 0.2
+        self.epsilon = 0.5
         self.epsilon_decay = 0.999  # Decay slowly
-        self.epsilon_min = 0.05    # Floor
+        self.epsilon_min = 0.25    # Floor
          
         self.gamma = 0.95
         self.alpha = 0.3
@@ -473,7 +473,7 @@ class PortfolioQLearningStrategy(TradingStrategy):
         state = self._get_global_state(api, trade_settings, open_trades, log_message)
 
         # --- Trade Probability Gate ---
-        trade_probability = 0.95
+        trade_probability = 0.985
 
         if np.random.random() > trade_probability:
             return None
@@ -789,7 +789,7 @@ class PortfolioQLearningStrategy(TradingStrategy):
         }              
 
     def _calculate_reward(self, api, trade_info, open_trades=None):
-        """Reward for microtrading. Uses actual close price from OANDA, or stored manual close P/L, or SL fallback."""
+        """Reward for microtrading. Rebalanced for stable Q-learning convergence."""
         pair = trade_info['pair']
         entry = trade_info['entry_price']
         action = trade_info['action']
@@ -801,14 +801,14 @@ class PortfolioQLearningStrategy(TradingStrategy):
             print(f"⏭️ Skipping inherited trade (no action data): {pair}")
             return 0.0
 
-        # Holding time
+        # --- Holding time ---
         entry_time = trade_info.get('entry_time', time.time())
         hours_held = max((time.time() - entry_time) / 3600.0, 2.0 / 60.0)
 
         instrument = ic.instruments_dict[pair]
         pip_location = float(instrument.pipLocation)
 
-        # ✅ PRIORITY 1: Fetch actual close price from OANDA
+        # --- Resolve close price (priority: API > manual > SL fallback) ---
         close_price = None
         close_source = None
 
@@ -817,7 +817,6 @@ class PortfolioQLearningStrategy(TradingStrategy):
             if close_price is not None:
                 close_source = "API"
 
-        # ✅ PRIORITY 2: If manually closed, use stored P/L
         if close_price is None:
             manual_close_pl = trade_info.get('manual_close_pl')
             if manual_close_pl is not None:
@@ -827,95 +826,104 @@ class PortfolioQLearningStrategy(TradingStrategy):
                     close_price = entry - (manual_close_pl * pip_location)
                 close_source = "manual"
 
-        # ✅ PRIORITY 3: Fallback — assume SL was hit
         if close_price is None:
-            close_price = sl_price if sl_price is not None else entry
-            close_source = "SL_fallback"
+            if sl_price is not None:
+                close_price = sl_price
+                close_source = "SL_fallback"
+            else:
+                close_price = entry
+                close_source = "unknown"
+                print(f"⚠️ No close price or SL for {pair}, defaulting to entry (0 pips)")
 
-        # Calculate P/L in pips
+        # --- P/L in pips ---
         if action == defs.BUY:
             profit_pips = (close_price - entry) / pip_location
         else:
             profit_pips = (entry - close_price) / pip_location
 
-        # --- Scalper Reward Logic ---
-        if profit_pips > 0:
-            effective_pips = min(profit_pips, 5.0)
+        # --- FIX 6: Subtract spread cost (adjust per instrument) ---
+        spread_pips = getattr(instrument, 'spread_pips', 0.7)  # ~0.5-1.0 typical
+        net_pips = profit_pips - spread_pips
+
+        # --- FIX 3: Rebalanced base reward (mild asymmetry, higher cap) ---
+        if net_pips > 0:
+            # Cap at 10 pips instead of 5 — still scalper-oriented but not too tight
+            effective_pips = min(net_pips, 10.0)
             base_reward = effective_pips * 1.0
         else:
-            base_reward = profit_pips * 2.0
+            # 1.2× loss multiplier instead of 2× — still loss-averse but not extreme
+            base_reward = net_pips * 1.2
 
-        # Speed Bonus: only for profitable trades
-        if hours_held < 0.1 and profit_pips > 0:
-            speed_bonus = 3.0
-        elif hours_held < 0.25 and profit_pips > 0:
-            speed_bonus = 1.0
-        else:
-            speed_bonus = 0.0
+        # --- Speed bonus: proportional, not a flat cliff ---
+        speed_bonus = 0.0
+        if net_pips > 0:
+            if hours_held < 0.1:       # < 6 min
+                speed_bonus = 1.5
+            elif hours_held < 0.25:    # < 15 min
+                speed_bonus = 0.5
 
-        # Holding Penalty
+        # --- FIX 5: Gentler holding penalty ---
         holding_penalty = 0.0
-        if hours_held > 0.75:
-            holding_penalty = (hours_held - 0.75) * 30.0
+        if hours_held > 0.5:  # start after 30 min (was 45 min)
+            holding_penalty = (hours_held - 0.5) * 5.0  # slope 5 (was 30)
+            # At 1h: -2.5 | At 2h: -7.5 | At 3h: -12.5
 
-        # Repeat Penalty — only on actual repeats
+        # --- FIX 1: Escalating repeat penalty with cooldown ---
         repeat_key = f"{pair}_{action}"
-        repeat_count = self.trade_history.get(repeat_key, 0)
-        repeat_penalty = 1.0 if repeat_count > 0 else 0.0
-        self.trade_history[repeat_key] = repeat_count + 1
+        now = time.time()
+        history_entry = self.trade_history.get(repeat_key, (0, 0.0))
+        repeat_count, last_trade_time = history_entry
 
-        # Prune history to prevent unbounded growth
+        # Cooldown: reset counter if > 30 min since last trade on this combo
+        if now - last_trade_time > 1800:
+            repeat_count = 0
+
+        # Escalate: 0, 0.3, 0.6, 0.9, 1.2... capped at 2.0
+        repeat_penalty = min(repeat_count * 0.3, 2.0)
+
+        self.trade_history[repeat_key] = (repeat_count + 1, now)
+
+        # Prune history
         if len(self.trade_history) > 10000:
-            self.trade_history = dict(list(self.trade_history.items())[-5000:])
+            # Keep only entries where last_trade_time is within 1 hour
+            self.trade_history = {
+                k: v for k, v in self.trade_history.items()
+                if now - v[1] < 3600
+            }
 
-        # ✅ REGRET PENALTY: Agent chose "trail" while in profit, trade ended in loss
+        # --- FIX 7: Capped regret penalty ---
         trail_in_profit = trade_info.get('trail_in_profit', False)
         trail_pl = trade_info.get('trail_pl', 0.0)
         regret_penalty = 0.0
-        if trail_in_profit and profit_pips < 0:
-            regret_penalty = (trail_pl - profit_pips) * 1.5
-            print(f"😞 REGRET: {pair} chose trail at +{trail_pl:.1f}p, "
-                f"closed at {profit_pips:+.1f}p. Penalty={regret_penalty:.2f}")
+        if trail_in_profit and net_pips < 0:
+            regret_penalty = min((trail_pl - net_pips) * 1.0, 2.0)  # cap at 2.0
+            if regret_penalty > 0:
+                print(f"😞 REGRET: {pair} trailed at +{trail_pl:.1f}p, "
+                    f"closed at {net_pips:+.1f}p. Penalty={regret_penalty:.2f}")
 
+        # --- FIX 2: Directional balance — REMOVED from reward ---
+        # Instead, fold long/short count into your state representation:
+        #   e.g., state_features = [..., long_count, short_count]
+        # The Q-table will learn the interaction naturally.
+
+        # --- Final reward ---
         reward = base_reward + speed_bonus - holding_penalty - repeat_penalty - regret_penalty
 
-        # Directional Balance Penalty
-        if open_trades:
-            long_count = 0
-            short_count = 0
-            for t in open_trades:
-                units = float(t.get('currentUnits', 0) if isinstance(t, dict) else getattr(t, 'currentUnits', 0))
-                if units > 0:
-                    long_count += 1
-                else:
-                    short_count += 1
+        # Clamp (tighter range for stable learning)
+        reward = max(min(reward, 20.0), -20.0)
 
-            if long_count > short_count * 2 and action == defs.BUY:
-                if reward > 0:
-                    reward *= 0.5
-                else:
-                    reward -= 1.0
-            elif short_count > long_count * 2 and action == defs.SELL:
-                if reward > 0:
-                    reward *= 0.5
-                else:
-                    reward -= 1.0
+        # --- Store metadata ---
+        trade_info['profit_pips'] = round(net_pips, 4)
+        trade_info['close_reason'] = close_source
 
-        # Clamp
-        reward = max(min(reward, 50.0), -50.0)
-        # At the end of _calculate_reward, before return:
-        trade_info['profit_pips'] = round(profit_pips, 4)
-        trade_info['close_reason'] = close_source  # "API", "manual", "SL_fallback"   
-
-        # DEBUG
-        print(f"📊 REWARD: {pair} {action} | entry={entry:.5f} close={close_price:.5f} [{close_source}] "
-            f"| pips={profit_pips:+.2f} hours={hours_held:.2f} "
-            f"| base={base_reward:.2f} bonus={speed_bonus:.2f} "
+        # --- Debug ---
+        print(f"📊 REWARD: {pair} {action} | entry={entry:.5f} close={close_price:.5f} "
+            f"[{close_source}] | net_pips={net_pips:+.2f} (gross={profit_pips:+.2f}) "
+            f"| hours={hours_held:.2f} | base={base_reward:.2f} bonus={speed_bonus:.1f} "
             f"hold_pen={holding_penalty:.2f} repeat_pen={repeat_penalty:.2f} "
-            f"regret={regret_penalty:.2f} "
-            f"FINAL={reward:.4f}")
+            f"regret={regret_penalty:.2f} | FINAL={reward:.4f}")
 
-        return reward                       
+        return reward                         
 
     def _check_closed_trades(self, api, log_message, trade_settings, open_trades=None):
         if not self.open_trades:
@@ -936,57 +944,65 @@ class PortfolioQLearningStrategy(TradingStrategy):
         for trade_id, info in list(self.open_trades.items()):
             trade_id_str = str(trade_id)
             if trade_id_str not in open_ids:
+                try:
+                    # 90-SECOND MINIMUM AGE
+                    entry_time = info.get('entry_time', 0)
+                    age_seconds = time.time() - entry_time if entry_time else 9999
 
-                # 90-SECOND MINIMUM AGE
-                entry_time = info.get('entry_time', 0)
-                age_seconds = time.time() - entry_time if entry_time else 9999
+                    if age_seconds < 90:
+                        continue
 
-                if age_seconds < 90:
-                    continue
+                    # 1. Calculate Reward
+                    reward = self._calculate_reward(api, info, open_trades)
 
-                # 1. Calculate Reward
-                reward = self._calculate_reward(api, info, open_trades)
-
-                # 2. Get Next State
-                next_state = 0
-                if hasattr(self, '_get_global_state'):
-                    next_state = self._get_global_state(api, trade_settings, open_trades, log_message)
-
-                if next_state >= self.q_table.shape[0]:
-                    log_message(f"ERROR: next_state {next_state} out of bounds!", "main")
+                    # 2. Get Next State
                     next_state = 0
+                    if hasattr(self, '_get_global_state'):
+                        next_state = self._get_global_state(api, trade_settings, open_trades, log_message)
 
-                # 3. Map Action to Index
-                pair_idx = self.pair_index.get(info['pair'], 0)
-                is_buy = 0 if info['action'] == defs.BUY else 4
-                tier = info.get('sl_tp_tier', 1)
-                action_idx = (pair_idx * 8) + is_buy + tier
+                    if next_state >= self.q_table.shape[0]:
+                        log_message(f"ERROR: next_state {next_state} out of bounds!", "main")
+                        next_state = 0
 
-                if action_idx >= self.q_table.shape[1]:
-                    log_message(f"ERROR: action_idx {action_idx} out of bounds (max={self.q_table.shape[1]-1})!", "main")
-                    continue
+                    # 3. Map Action to Index (FIX: 0-indexed tier to avoid collision)
+                    pair_idx = self.pair_index.get(info['pair'], 0)
+                    is_buy = 0 if info['action'] == defs.BUY else 4
+                    tier = info.get('sl_tp_tier', 1) - 1  # 0-indexed: 0–3
+                    action_idx = (pair_idx * 8) + is_buy + tier
 
-                # 4. Update Q-value (entry decision)
-                self.update_q_value(info['state'], action_idx, reward, next_state)
+                    if action_idx >= self.q_table.shape[1]:
+                        log_message(f"ERROR: action_idx {action_idx} out of bounds (max={self.q_table.shape[1]-1})!", "main")
+                        del self.open_trades[trade_id]
+                        continue
 
-                # 4b. Update Q-value (management decision)
-                mgmt_action_taken = info.get('mgmt_action_at_close')
-                if mgmt_action_taken is not None:
-                    mgmt_idx = (pair_idx * 11 + 8) + mgmt_action_taken
-                    if mgmt_idx < self.q_table.shape[1]:
-                        mgmt_reward = reward * 0.5
-                        self.update_q_value(info['state'], mgmt_idx, mgmt_reward, next_state)
+                    # 4. Update Q-value (entry decision)
+                    self.update_q_value(info['state'], action_idx, reward, next_state)
 
-                # ✅ 5. Record training data for supervised model
-                self._record_training_data(info, reward, next_state, tier, age_seconds, open_trades)
+                    # 4b. Update Q-value (management decision) — FIX: use mgmt_state
+                    mgmt_action_taken = info.get('mgmt_action_at_close')
+                    if mgmt_action_taken is not None:
+                        mgmt_idx = (pair_idx * 11 + 8) + mgmt_action_taken
+                        if mgmt_idx < self.q_table.shape[1]:
+                            mgmt_reward = reward * 0.5
+                            # Use state at time of management decision, not entry state
+                            mgmt_state = info.get('mgmt_state', info['state'])
+                            self.update_q_value(mgmt_state, mgmt_idx, mgmt_reward, next_state)
 
-                log_message(
-                    f"Q-UPDATE: trade={trade_id} pair={info['pair']} "
-                    f"state={info['state']} action={action_idx} reward={reward:.2f} "
-                    f"age={age_seconds:.0f}s",
-                    info['pair']
-                )
-                del self.open_trades[trade_id]
+                    # 5. Record training data for supervised model
+                    self._record_training_data(info, reward, next_state, tier + 1, age_seconds, open_trades)
 
-        self.save_model()       
+                    log_message(
+                        f"Q-UPDATE: trade={trade_id} pair={info['pair']} "
+                        f"state={info['state']} action={action_idx} reward={reward:.2f} "
+                        f"age={age_seconds:.0f}s",
+                        info['pair']
+                    )
+
+                except Exception as e:
+                    log_message(f"ERROR processing trade {trade_id}: {e}", "main")
+
+                finally:
+                    del self.open_trades[trade_id]
+
+        self.save_model()          
  
