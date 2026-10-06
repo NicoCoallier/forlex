@@ -1,18 +1,37 @@
 [project]
-name = "ninibot"
+name = "forlex"
 version = "0.1.0"
 description = ""
 authors = [
     {name = "Nico"}
 ]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "jupyter (>=1.1.1,<2.0.0)",
-    "pandas (>=3.0.5,<4.0.0)"
+    "numpy (>=2.5.3,<3.0.0)",
+    "pandas (>=3.0.6,<4.0.0)",
+    "plotly (>=7.1.0,<8.0.0)",
+    "requests (>=2.34.2,<3.0.0)",
+    "python-dotenv (>=1.2.4,<2.0.0)"
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)",
+    "ruff (>=0.16.9,<0.17.0)",
+    "mypy (>=2.4.0,<3.0.0)",
+    "pandas-stubs (>=3.0.5.260914,<4.0.0.0)",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[[tool.mypy.overrides]]
+# plotly ships no type information
+module = ["plotly", "plotly.*"]
+ignore_missing_imports = true
